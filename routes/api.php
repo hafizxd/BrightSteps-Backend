@@ -18,12 +18,10 @@ use App\Http\Controllers\API\Parent\ChildController;
 |
 */
 
-Route::controller(AuthController::class)->group(function(){
-    Route::post('register', 'register');
-    Route::post('login/{accountType}', 'login');
-    Route::post('{providerType}/login', 'socialLogin');
-    Route::post('logout', 'logout')->middleware('auth:sanctum');
-});
+Route::post('register', [AuthController::class, 'register']);
+Route::post('login/{accountType}', [AuthController::class, 'login']);
+Route::post('{providerType}/login', [AuthController::class, 'socialLogin']);
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('profile')->group(function () {
