@@ -18,13 +18,17 @@ class ProfileController extends Controller
     public function update(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
+            'email' => 'required',
         ]);
 
         if($validator->fails())
             return $this->sendError('Validation Error.', $validator->errors());
 
         auth()->user()->update([
-            'name' => $request->name
+            'name' => $request->name,
+            'email' => $request->email,
+            'birth_date' => $request->birth_date,
+            'gender' => $request->gender
         ]);
 
         return $this->sendResponse([], 'Berhasil mengupdate profile');

@@ -20,8 +20,13 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->tinyInteger('account_type')->default(1);
+            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->date('birth_date')->nullable();
+            $table->enum('gender', [1, 2])->nullable();
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('parent_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

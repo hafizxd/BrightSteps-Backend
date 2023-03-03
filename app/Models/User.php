@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Provider;
+use App\Models\User;
 
 class User extends Authenticatable
 {
@@ -22,6 +23,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'account_type',
+        'parent_id',
+        'birth_date',
+        'gender',
     ];
 
     /**
@@ -45,5 +50,13 @@ class User extends Authenticatable
 
     public function providers() {
         return $this->hasMany(Provider::class);
+    }
+
+    public function parent() {
+        return $this->belongsTo(User::class, 'parent_id', 'id');
+    }
+
+    public function children() {
+        return $this->hasMany(User::class, 'parent_id', 'id');
     }
 }

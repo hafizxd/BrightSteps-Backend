@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ProfileController;
+use App\Http\Controllers\API\Parent\ChildController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('profile')->group(function () {
         Route::get('/', [ProfileController::class, 'index']);
         Route::post('update', [ProfileController::class, 'update']);
+    });
+
+    Route::prefix('parent/child')->group(function () {
+        Route::post('/create', [ChildController::class, 'store']);
     });
 });
